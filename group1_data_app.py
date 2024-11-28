@@ -6,7 +6,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit.components.v1 as components
-from src.convert_image import convert_image
 from PIL import Image
 from rembg import remove
 
