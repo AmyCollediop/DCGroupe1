@@ -39,9 +39,6 @@ def fix_image(upload):
         col2.image(fixed)
         st.sidebar.markdown("\n")
         st.sidebar.subheader("- Click to download your image with the background removed.")
-        st.sidebar.download_button("Download Image", convert_image(
-            fixed), "fixed.png", "image/png", )
-
 
 if my_upload is not None:
     if my_upload.size > MAX_FILE_SIZE:
