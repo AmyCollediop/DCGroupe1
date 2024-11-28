@@ -39,7 +39,7 @@ st.sidebar.markdown(
  """ ,
  unsafe_allow_html = Vrai
  )
- add_bg_from_local ( 'img.jpg' )
+ add_bg_from_local ( 'web1.jpg' )
 
 # Add options to the lateral bar
 pages_indexes = st.sidebar.selectbox("Pages indexes", list(range(1, 250)), index=2)
