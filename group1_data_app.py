@@ -6,6 +6,51 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit.components.v1 as components
+from src.convert_image import convert_image
+from PIL import Image
+from rembg import remove
+
+st.set_page_config(layout="wide", page_title="Image Background Remover")
+
+st.write("## AI-Powered Photo Background Remover")
+st.write(
+    ":dog: The Background Remover Streamlit App is a powerful and user-friendly web application designed to seamlessly remove backgrounds from images. **This code is open source and available [here](https://github.com/Bhavik-Jikadara/bg-remover) on GitHub.** Special thanks to the [rembg library](https://github.com/danielgatis/rembg) :grin:"
+)
+st.sidebar.write("## Upload and download :gear:")
+
+MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB
+
+my_upload = st.sidebar.file_uploader(
+    "Upload an image", type=["png", "jpg", "jpeg"])
+
+
+col1, col2 = st.columns(2)
+
+
+def fix_image(upload):
+    with col1:
+        image = Image.open(upload)
+        col1.write("Original Image :camera:")
+        col1.image(image)
+
+    with col2:
+        fixed = remove(image)
+        col2.write("Fixed Image :wrench:")
+        col2.image(fixed)
+        st.sidebar.markdown("\n")
+        st.sidebar.subheader("- Click to download your image with the background removed.")
+        st.sidebar.download_button("Download Image", convert_image(
+            fixed), "fixed.png", "image/png", )
+
+
+if my_upload is not None:
+    if my_upload.size > MAX_FILE_SIZE:
+        st.error(
+            "The uploaded file is too large. Please upload an image smaller than 5MB.")
+    else:
+        fix_image(upload=my_upload)
+else:
+    fix_image("web1.jpg")
 
 st.markdown("<h1 style='text-align: center; color: black;'>GROUP 1 DATA APP</h1>", unsafe_allow_html=True)
 
@@ -153,6 +198,9 @@ elif options == "Dashboard of the data":
     plt.ylabel('Average prices (FCFA)', fontsize=12)
     plt.xticks(rotation=45, ha='right')#Rotate the names of the bars
     st.pyplot(plot1)
+    
+    df_phones = df_phones.drop(['web-scraper-order','web-scraper-start-url'], axis = 1) #We drop the useless columns
+    df_phones['price'] = pd.to_numeric(df_phones['price'].str.replace('F Cfa', '', regex=False).str.replace(' ', ''),  errors='coerce')#We clean the 'price' column
    # -- Plot 2: Distribution of phone prices ---
     plot2 = plt.figure(figsize=(10, 6))
     sns.histplot(df_phones['price'], kde=True, color='skyblue')
@@ -160,6 +208,9 @@ elif options == "Dashboard of the data":
     plt.xlabel('Price (FCFA)', fontsize=12)
     plt.ylabel('Frequency', fontsize=12)
     st.pyplot(plot2)
+
+    df_cinema = df_cinema.drop(['web-scraper-order','web-scraper-start-url'], axis = 1) #We drop the useless columns
+    df_cinema['price'] = pd.to_numeric(df_cinema['price'].str.replace('F Cfa', '', regex=False).str.replace(' ', ''),  errors='coerce')#We clean the 'price' column
     # --- Plot 3: Top 5 most expensive TVs ---
     top_5_tvs = df_cinema.nlargest(5, 'price')
     plot3 = plt.figure(figsize=(10, 6))
