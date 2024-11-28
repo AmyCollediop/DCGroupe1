@@ -9,20 +9,6 @@ from src.convert_image import convert_image
 from PIL import Image
 from rembg import remove
 import streamlit.components.v1 as components
-
-st.markdown("<h1 style='text-align: center; color: black;'>GROUP 1 DATA APP</h1>", unsafe_allow_html=True)
-
-st.markdown("""
-This app performs webscraping of data from dakar-auto over multiples pages. And we can also download scraped data from the app directly without scraping them.
-
-* **Python libraries:** base64, pandas, streamlit, requests, bs4
-* **Data source:** [Expat-Dakar-ordinateurs](https://www.expat-dakar.com/ordinateurs) — [Expat-Dakar-telephones](https://www.expat-dakar.com/telephones) - [Expat-Dakar-cinema](https://www.expat-dakar.com/tv-home-cinema).
-""")
-
-st.sidebar.markdown(
-    "<h2 style='color: #ffffff; background-color: #5a9; padding: 10px; text-align: center;'>User Input Features</h2>",
-    unsafe_allow_html=True,
-)
 # Fonction pour ajouter un arrière-plan
  def add_bg_from_local ( fichier_image ) :
  avec open ( image_file , "rb" ) comme image_file :
@@ -40,6 +26,21 @@ st.sidebar.markdown(
  unsafe_allow_html = Vrai
  )
  add_bg_from_local ( 'web1.jpg' )
+
+st.markdown("<h1 style='text-align: center; color: black;'>GROUP 1 DATA APP</h1>", unsafe_allow_html=True)
+
+st.markdown("""
+This app performs webscraping of data from dakar-auto over multiples pages. And we can also download scraped data from the app directly without scraping them.
+
+* **Python libraries:** base64, pandas, streamlit, requests, bs4
+* **Data source:** [Expat-Dakar-ordinateurs](https://www.expat-dakar.com/ordinateurs) — [Expat-Dakar-telephones](https://www.expat-dakar.com/telephones) - [Expat-Dakar-cinema](https://www.expat-dakar.com/tv-home-cinema).
+""")
+
+st.sidebar.markdown(
+    "<h2 style='color: #ffffff; background-color: #5a9; padding: 10px; text-align: center;'>User Input Features</h2>",
+    unsafe_allow_html=True,
+)
+
 
 # Add options to the lateral bar
 pages_indexes = st.sidebar.selectbox("Pages indexes", list(range(1, 250)), index=2)
