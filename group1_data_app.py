@@ -152,6 +152,22 @@ elif options == "Dashboard of the data":
     plt.ylabel('Average prices (FCFA)', fontsize=12)
     plt.xticks(rotation=45, ha='right')#Rotate the names of the bars
     st.pyplot(plot1)
+   # -- Plot 2: Distribution of phone prices ---
+    plot2 = plt.figure(figsize=(10, 6))
+    sns.histplot(df_phones['price'], kde=True, color='skyblue')
+    plt.title('Distribution of Phone Prices', fontsize=14)
+    plt.xlabel('Price (FCFA)', fontsize=12)
+    plt.ylabel('Frequency', fontsize=12)
+    st.pyplot(plot2)
+    # --- Plot 3: Top 5 most expensive TVs ---
+    top_5_tvs = df_cinema.nlargest(5, 'price')
+    plot3 = plt.figure(figsize=(10, 6))
+    sns.barplot(x='brand', y='price', data=top_5_tvs, palette='viridis')
+    plt.title('Top 5 Most Expensive TVs', fontsize=14)
+    plt.xlabel('Brand', fontsize=12)
+    plt.ylabel('Price (FCFA)', fontsize=12)
+    plt.xticks(rotation=45, ha='right')
+    st.pyplot(plot3)
 
 else:
     components.html("""
