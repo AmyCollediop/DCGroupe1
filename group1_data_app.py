@@ -5,6 +5,9 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from src.convert_image import convert_image
+from PIL import Image
+from rembg import remove
 import streamlit.components.v1 as components
 
 st.markdown("<h1 style='text-align: center; color: black;'>GROUP 1 DATA APP</h1>", unsafe_allow_html=True)
@@ -20,6 +23,23 @@ st.sidebar.markdown(
     "<h2 style='color: #ffffff; background-color: #5a9; padding: 10px; text-align: center;'>User Input Features</h2>",
     unsafe_allow_html=True,
 )
+# Fonction pour ajouter un arrière-plan
+ def add_bg_from_local ( fichier_image ) :
+ avec open ( image_file , "rb" ) comme image_file :
+ chaîne_encodée = base64 . b64encode ( image_file . read ())
+ st.markdown (
+ f """
+ <style>
+ .stApp {{
+ background-image: url(data:image/ { "jpg" } ; base64, { chaîne_encodée . decode () } );
+ background-size: couverture;
+ background-attachment : corrigé ;
+        }}
+ </style>
+ """ ,
+ unsafe_allow_html = Vrai
+ )
+ add_bg_from_local ( 'img.jpg' )
 
 # Add options to the lateral bar
 pages_indexes = st.sidebar.selectbox("Pages indexes", list(range(1, 250)), index=2)
